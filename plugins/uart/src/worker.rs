@@ -1,7 +1,7 @@
 use std::io::Write;
 use std::time::Duration;
 use crate::Error;
-use kaspa_miner::Worker;
+use kasop::Worker;
 
 pub struct UartWorker {
     port: Box<dyn serialport::SerialPort>,
@@ -36,7 +36,7 @@ impl Worker for UartWorker{
     fn calculate_hash(&mut self, _nonces: Option<&Vec<u64>>, _nonce_mask: u64, _nonce_fixed: u64) {
     }
 
-    fn sync(&self) -> Result<(), kaspa_miner::Error> {
+    fn sync(&self) -> Result<(), kasop::Error> {
         Ok(())
     }
 
@@ -44,7 +44,7 @@ impl Worker for UartWorker{
         self.workload
     }
 
-    fn copy_output_to(&mut self, nonces: &mut Vec<u64>) -> Result<(), kaspa_miner::Error> {
+    fn copy_output_to(&mut self, nonces: &mut Vec<u64>) -> Result<(), kasop::Error> {
         let mut buff : Vec<u8> = vec![0u8; 8*self.workload];
         self.port.read_exact(buff.as_mut_slice())?;
         nonces.copy_from_slice(unsafe { buff.align_to::<u64>().1 });

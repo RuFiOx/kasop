@@ -1,9 +1,9 @@
 #[macro_use]
-extern crate kaspa_miner;
+extern crate kasop;
 
 use std::cmp::min;
 use clap::{ArgMatches, FromArgMatches};
-use kaspa_miner::{Plugin, Worker, WorkerSpec};
+use kasop::{Plugin, Worker, WorkerSpec};
 use std::error::Error as StdError;
 
 pub type Error = Box<dyn StdError + Send + Sync + 'static>;
@@ -14,7 +14,7 @@ mod worker;
 use crate::cli::UartOpt;
 use crate::worker::UartWorker;
 
-const DEFAULT_WORKLOAD: usize = 10_000;
+const DEFAULT_WORKLOAD: usize = 100_000;
 
 pub struct UartPlugin {
     specs: Vec<UartWorkerSpec>,
@@ -41,7 +41,7 @@ impl Plugin for UartPlugin {
     }
 
     //noinspection RsTypeCheck
-    fn process_option(&mut self, matches: &ArgMatches) -> Result<(), kaspa_miner::Error> {
+    fn process_option(&mut self, matches: &ArgMatches) -> Result<(), kasop::Error> {
         let opts: UartOpt = UartOpt::from_arg_matches(matches)?;
         if opts.uart_path.is_none() {
             self._enabled = false;

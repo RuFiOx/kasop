@@ -8,7 +8,7 @@ repository = "https://github.com/RuFiOx/kasop.git"
 readme = "README.md"
 description = "Kaspa $KAS ASIC Miner"
 categories = ["command-line-utilities"]
-keywords = ["blockchain", "cli"]
+keywords = ["blockchain", "cli", "kaspa", "cryptocurrency", "cryptomining"]
 include = [
     "src/**/*.rs",
     "src/**/*.s",

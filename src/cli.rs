@@ -5,7 +5,7 @@ use std::{net::IpAddr, str::FromStr};
 use crate::Error;
 
 #[derive(Parser, Debug)]
-#[clap(name = "kaspa-miner", about = "A Kaspa high performance CPU miner")]
+#[clap(name = "kasop", about = "Kaspa $KAS ASIC Miner")]
 pub struct Opt {
     #[clap(short, long, help = "Enable debug logging level")]
     pub debug: bool,

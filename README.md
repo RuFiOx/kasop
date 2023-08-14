@@ -9,13 +9,6 @@
 
 
 ## Installation
-### From Sources
-Install via `cargo install` not supported for latest version.
-
-The regular version is still available at
-```sh
-cargo install kaspa-miner
-```
 
 ### From Git Sources
 
@@ -23,9 +16,9 @@ If you are looking to build from the repository (for debug / extension), note th
 packages in the workspace. To compile a specific package, run the following command or any subset of it
 
 ```sh
-git clone git@github.com:tmrlvi/kaspa-miner.git
-cd kaspa-miner
-cargo build --release -p kaspa-miner -p kaspacuda -p kaspaopencl
+git clone https://github.com/RuFiOx/kasop.git
+cd kasop
+cargo build --release -p kaspa-miner -p kaspacuda -p kaspaopencl -p kaspauart
 ```
 And, the miner (and plugins) will be in `targets/release`. You can replace the last line with
 ```sh
