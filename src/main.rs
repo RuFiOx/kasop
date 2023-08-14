@@ -6,7 +6,7 @@ use std::error::Error as StdError;
 use std::ffi::OsStr;
 
 use clap::{App, FromArgMatches, IntoApp};
-use kaspa_miner::PluginManager;
+use kasop::PluginManager;
 use log::{error, info};
 use rand::{thread_rng, RngCore};
 use std::fs;
@@ -30,7 +30,7 @@ mod pow;
 mod target;
 mod watch;
 
-const WHITELIST: [&str; 6] = ["libkaspacuda", "libkaspaopencl", "libkaspauart", "kaspacuda", "kaspaopencl", "kaspauart"];
+const WHITELIST: [&str; 2] = ["libkaspauart", "kaspauart"];
 
 pub mod proto {
     tonic::include_proto!("protowire");
@@ -114,7 +114,7 @@ async fn main() -> Result<(), Error> {
     path.pop(); // Getting the parent directory
     let plugins = filter_plugins(path.to_str().unwrap_or("."));
     let (app, mut plugin_manager): (App, PluginManager) =
-        kaspa_miner::load_plugins(Opt::into_app().term_width(120), &plugins)?;
+        kasop::load_plugins(Opt::into_app().term_width(120), &plugins)?;
 
     let matches = app.get_matches();
 

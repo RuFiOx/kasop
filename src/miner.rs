@@ -12,7 +12,7 @@ use tokio::task::{self, JoinHandle};
 use tokio::time::MissedTickBehavior;
 
 use crate::pow::BlockSeed;
-use kaspa_miner::{PluginManager, WorkerSpec};
+use kasop::{PluginManager, WorkerSpec};
 
 type MinerHandler = std::thread::JoinHandle<Result<(), Error>>;
 
@@ -30,13 +30,29 @@ fn register_freeze_handler() {
 }
 
 #[cfg(any(target_os = "linux", target_os = "mac_os"))]
-fn trigger_freeze_handler(kill_switch: Arc<AtomicBool>, handle: &MinerHandler) -> std::thread::JoinHandle<()> {
+fn trigger_freeze_handler(_kill_switch: Arc<AtomicBool>, handle: &MinerHandler) -> std::thread::JoinHandle<()> {
     use std::os::unix::thread::JoinHandleExt;
-    let pthread_handle = handle.as_pthread_t();
+    use std::os::raw::c_void;
+    use std::sync::Mutex;
+    use nix::sys::pthread;
+    use nix::sys::signal::Signal;
+
+    let pthread_handle = handle.as_pthread_t() as *mut c_void;
+
+    struct SendablePtr(*mut c_void);
+    unsafe impl Send for SendablePtr {}
+    
+    let shared_handle = Arc::new(Mutex::new(SendablePtr(pthread_handle)));
+    
+    // Assuming kill_switch is defined elsewhere in your code
+    let kill_switch: AtomicBool = AtomicBool::new(false);
+    
     std::thread::spawn(move || {
         sleep(Duration::from_millis(1000));
         if kill_switch.load(Ordering::SeqCst) {
-            match nix::sys::pthread::pthread_kill(pthread_handle, nix::sys::signal::Signal::SIGUSR1) {
+            // Lock the mutex and extract the raw pointer
+            let handle = shared_handle.lock().unwrap().0;
+            match pthread::pthread_kill(handle, Signal::SIGUSR1) {
                 Ok(()) => {
                     info!("Thread killed successfully")
                 }

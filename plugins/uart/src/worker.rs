@@ -2,7 +2,6 @@ use std::io::Write;
 use std::time::Duration;
 use crate::Error;
 use kaspa_miner::Worker;
-use log::error;
 
 pub struct UartWorker {
     port: Box<dyn serialport::SerialPort>,
@@ -24,14 +23,14 @@ impl Worker for UartWorker{
         if let Err(err) = self.port.flush() {
             panic!("Could not flush: {:?}", err);
         };
-        /*match self.port.write_request_to_send(true) {
+        match self.port.write_request_to_send(true) {
             Ok(()) => {
                 if let Err(err) = self.port.write_all(&hash_header[..40]) {
                     panic!("Could not write: {:?}", err);
                 };
             },
             Err(err) => {panic!("Could not request writing: {:?}", err);}
-        };*/
+        };
     }
 
     fn calculate_hash(&mut self, _nonces: Option<&Vec<u64>>, _nonce_mask: u64, _nonce_fixed: u64) {

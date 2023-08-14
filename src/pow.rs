@@ -11,7 +11,7 @@ use crate::{
     target::{self, Uint256},
     Error, Hash,
 };
-use kaspa_miner::Worker;
+use kasop::Worker;
 
 mod hasher;
 mod heavy_hash;

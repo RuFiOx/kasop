@@ -1,0 +1,6 @@
+[build]
+target = "arm-unknown-linux-musleabi"
+
+[target.arm-unknown-linux-musleabi]
+linker = "arm-linux-musleabi-gcc"
+runner = ["/usr/bin/env", "PYTHONPATH=scripts:../scripts", "python3", "-mrunner", "--apply=arm-openwrt-linux-strip"]
