@@ -64,39 +64,6 @@ fn trigger_freeze_handler(_kill_switch: Arc<AtomicBool>, handle: &MinerHandler) 
     })
 }
 
-#[cfg(any(target_os = "windows"))]
-struct RawHandle(*mut std::ffi::c_void);
-
-#[cfg(any(target_os = "windows"))]
-unsafe impl Send for RawHandle {}
-
-#[cfg(any(target_os = "windows"))]
-fn register_freeze_handler() {}
-
-#[cfg(target_os = "windows")]
-fn trigger_freeze_handler(kill_switch: Arc<AtomicBool>, handle: &MinerHandler) -> std::thread::JoinHandle<()> {
-    use std::os::windows::io::AsRawHandle;
-    let raw_handle = RawHandle(handle.as_raw_handle());
-
-    std::thread::spawn(move || unsafe {
-        let ensure_full_move = raw_handle;
-        sleep(Duration::from_millis(1000));
-        if kill_switch.load(Ordering::SeqCst) {
-            kernel32::TerminateThread(ensure_full_move.0, 0);
-        }
-    })
-}
-
-#[cfg(not(any(target_os = "linux", target_os = "mac_os", target_os = "windows")))]
-fn trigger_freeze_handler(kill_switch: Arc<AtomicBool>, handle: &MinerHandler) {
-    warn!("Freeze handler is not implemented. Frozen threads are ignored");
-}
-
-#[cfg(not(any(target_os = "linux", target_os = "mac_os", target_os = "windows")))]
-fn register_freeze_handler() {
-    warn!("Freeze handler is not implemented. Frozen threads are ignored");
-}
-
 #[derive(Clone)]
 enum WorkerCommand {
     Job(Box<pow::State>),
@@ -465,49 +432,5 @@ impl MinerManager {
             n if n < 1_000_000_000_000_000.0 => (n / 1_000_000_000_000.0, "Thash/s"),
             _ => (n, "hash/s"),
         }
-    }
-}
-
-#[cfg(all(test, feature = "bench"))]
-mod benches {
-    extern crate test;
-
-    use self::test::{black_box, Bencher};
-    use crate::pow::State;
-    use crate::proto::{RpcBlock, RpcBlockHeader};
-    use rand::{thread_rng, RngCore};
-
-    #[bench]
-    pub fn bench_mining(bh: &mut Bencher) {
-        let mut state = State::new(
-            0,
-            RpcBlock {
-                header: Some(RpcBlockHeader {
-                    version: 1,
-                    parents: vec![],
-                    hash_merkle_root: "23618af45051560529440541e7dc56be27676d278b1e00324b048d410a19d764".to_string(),
-                    accepted_id_merkle_root: "947d1a10378d6478b6957a0ed71866812dee33684968031b1cace4908c149d94"
-                        .to_string(),
-                    utxo_commitment: "ec5e8fc0bc0c637004cee262cef12e7cf6d9cd7772513dbd466176a07ab7c4f4".to_string(),
-                    timestamp: 654654353,
-                    bits: 0x1e7fffff,
-                    nonce: 0,
-                    daa_score: 654456,
-                    blue_work: "d8e28a03234786".to_string(),
-                    pruning_point: "be4c415d378f9113fabd3c09fcc84ddb6a00f900c87cb6a1186993ddc3014e2d".to_string(),
-                    blue_score: 1164419,
-                }),
-                transactions: vec![],
-                verbose_data: None,
-            },
-        )
-        .unwrap();
-        nonce = thread_rng().next_u64();
-        bh.iter(|| {
-            for _ in 0..100 {
-                black_box(state.check_pow(nonce));
-                nonce += 1;
-            }
-        });
     }
 }

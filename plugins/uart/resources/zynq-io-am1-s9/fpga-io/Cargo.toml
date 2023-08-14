@@ -1,0 +1,23 @@
+[package]
+name = "fpga-io-am1-s9"
+version = "0.1.0"
+authors = ["Braiins <braiins@braiins.com>"]
+license = "GPL-3.0-or-later"
+edition = "2018"
+
+[lib]
+# the 'lib.rs' file is generated and cargo does not know what type this crate
+# is prior to build this allows plan build system before the file is generated
+path = "src/lib.rs"
+
+[dependencies]
+bare-metal = "0.2.0"
+vcell = "0.1.0"
+
+[build-dependencies]
+svd-build = { path = "../../../resources/svd-build" }
+
+# failure caused a problem when they used private API from quote:
+# https://users.rust-lang.org/t/failure-derive-compilation-error/39062
+[patch.crates-io.failure]
+path = "../../../resources/failure"

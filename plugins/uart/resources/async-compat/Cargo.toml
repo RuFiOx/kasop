@@ -1,0 +1,15 @@
+[package]
+name = "async-compat"
+version = "0.2.0"
+authors = ["Braiins <braiins@braiins.com>"]
+license = "GPL-3.0-or-later"
+edition = "2018"
+
+# This is a central place to specify core async dependencies
+
+[dependencies]
+futures = { version = "0.3.1", features = ["compat"] }
+bytes = "0.5"
+tokio = { version = "0.2.10", features = ["full"] }
+tokio-util = { version = "0.2.0", features = ["codec"] }
+stream-cancel = "0.5.1"

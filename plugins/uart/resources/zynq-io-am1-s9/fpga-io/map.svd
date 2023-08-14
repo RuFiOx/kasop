@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- File naming: map.svd -->
+
+<!--
+  Copyright (C) 2019  Braiins Systems s.r.o.  All rights reserved.
+
+  Purpose: System Viewer Description (SVD) (Schema Version 1.1)
+           This is a description of a none-existent and incomplete device
+		   for demonstration purposes only.
+
+ -->
+ 
+<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
+  <!-- device vendor name -->
+  <vendor>Braiins Systems s.r.o.</vendor>
+  <!--device vendor short name -->
+  <vendorID>BRAIINS</vendorID>
+  <!-- name of part-->
+  <name>braiins</name>
+  <!-- device series the device belongs to -->
+  <series>S9</series>
+  <!-- should match s9-io IP core version -->
+  <version>0.2.0</version>
+  <description>S9 I/O</description>
+  <!-- this license text will appear in header file. \n force line breaks -->
+  <licenseText>
+    GPL, all free \n
+  </licenseText>
+  <!-- byte addressable memory -->
+  <addressUnitBits>8</addressUnitBits>
+  <!-- bus width is 32 bits -->
+  <width>32</width>
+  <!-- default settings implicitly inherited by subsequent sections -->
+  <!-- this is the default size (number of bits) of all peripherals
+  and register that do not define "size" themselves -->
+  <size>32</size>
+  <!-- default access permission for all subsequent registers -->
+  <access>read-write</access>
+  <!-- by default all bits of the registers are initialized to 0 on reset -->
+  <resetValue>0x00000000</resetValue>
+  <!-- by default all 32Bits of the registers are used -->
+  <resetMask>0xFFFFFFFF</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>COMMON</name>
+      <description>Hashing Chain I/O module, common and config registers</description>
+      <groupName>HASHCHAIN</groupName>
+      <baseAddress>0</baseAddress>
+      <size>32</size>
+      <access>read-write</access>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x1c</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>VERSION</name>
+          <description>IP Core Version Register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00090002</resetValue>
+          <resetMask>0xffffffff</resetMask>
+          <fields>
+            <field>
+              <name>MINER_TYPE</name>
+              <access>read-only</access>
+              <description>miner type</description>
+              <bitRange>[31:28]</bitRange>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>Antminer</name>
+                  <value>0</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>MODEL</name>
+              <access>read-only</access>
+              <description>IP core model</description>
+              <bitRange>[27:20]</bitRange>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>S9</name>
+                  <value>9</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>MAJOR</name>
+              <access>read-only</access>
+              <description>IP core major version</description>
+              <bitRange>[15:12]</bitRange>
+            </field>
+            <field>
+              <name>MINOR</name>
+              <access>read-only</access>
+              <description>IP core minor version</description>
+              <bitRange>[11:8]</bitRange>
+            </field>
+            <field>
+              <name>PATCH</name>
+              <access>read-only</access>
+              <description>IP core patch version</description>
+              <bitRange>[7:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BUILD_ID</name>
+          <description>Build ID Register</description>
+          <addressOffset>0x04</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>CTRL_REG</name>
+          <description>Control Register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x0000000f</resetMask>
+          <fields>
+            <field>
+              <name>BM139X</name>
+              <access>read-write</access>
+              <description>Enable support for chips BM1391, BM1397</description>
+              <bitRange>[4:4]</bitRange>
+            </field>
+            <field>
+              <name>ENABLE</name>
+              <access>read-write</access>
+              <description>Enable of IP core</description>
+              <bitRange>[3:3]</bitRange>
+            </field>
+            <field>
+              <name>MIDSTATE_CNT</name>
+              <access>read-write</access>
+              <description>Number of midstates per work</description>
+              <bitRange>[2:1]</bitRange>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>one</name>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>two</name>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>four</name>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ERR_CNT_CLEAR</name>
+              <access>write-only</access>
+              <description>Clear error counter</description>
+              <bitRange>[0:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STAT_REG</name>
+          <description>Status Register - reserved</description>
+          <addressOffset>0x0c</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>BAUD_REG</name>
+          <description>Baudrate Divisor Register</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>WORK_TIME</name>
+          <description>Work Time Delay Register</description>
+          <addressOffset>0x14</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000001</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>ERR_COUNTER</name>
+          <description>Error Counter Register</description>
+          <addressOffset>0x18</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>COMMAND</name>
+      <description>Hashing Chain I/O module, command FIFOs</description>
+      <groupName>HASHCHAIN</groupName>
+      <baseAddress>0</baseAddress>
+      <size>32</size>
+      <access>read-write</access>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x10</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>CMD_RX_FIFO</name>
+          <description>Command Receive Interface FIFO</description>
+          <addressOffset>0x00</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>CMD_TX_FIFO</name>
+          <description>Command Transmit Interface FIFO</description>
+          <addressOffset>0x04</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>CMD_CTRL_REG</name>
+          <description>Command Control Register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x00000007</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_EN</name>
+              <access>read-write</access>
+              <description>Enable interrupt for Command Receive FIFO</description>
+              <bitRange>[2:2]</bitRange>
+            </field>
+            <field>
+              <name>RST_TX_FIFO</name>
+              <access>write-only</access>
+              <description>Reset/clear Command Transmit FIFO</description>
+              <bitRange>[1:1]</bitRange>
+            </field>
+            <field>
+              <name>RST_RX_FIFO</name>
+              <access>write-only</access>
+              <description>Reset/clear Command Receive FIFO</description>
+              <bitRange>[0:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CMD_STAT_REG</name>
+          <description>Command Status Register</description>
+          <addressOffset>0x0c</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000005</resetValue>
+          <resetMask>0x0000001f</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_PEND</name>
+              <access>read-only</access>
+              <description>Interrupt pending for Command Receive FIFO</description>
+              <bitRange>[4:4]</bitRange>
+            </field>
+            <field>
+              <name>TX_FULL</name>
+              <access>read-only</access>
+              <description>Command Interface Transmit FIFO Full</description>
+              <bitRange>[3:3]</bitRange>
+            </field>
+            <field>
+              <name>TX_EMPTY</name>
+              <access>read-only</access>
+              <description>Command Interface Transmit FIFO Empty</description>
+              <bitRange>[2:2]</bitRange>
+            </field>
+            <field>
+              <name>RX_FULL</name>
+              <access>read-only</access>
+              <description>Command Interface Receive FIFO Full</description>
+              <bitRange>[1:1]</bitRange>
+            </field>
+            <field>
+              <name>RX_EMPTY</name>
+              <access>read-only</access>
+              <description>Command Interface Receive FIFO Empty</description>
+              <bitRange>[0:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>WORKRX</name>
+      <description>Hashing Chain I/O module, reception FIFO </description>
+      <groupName>HASHCHAIN</groupName>
+      <baseAddress>0</baseAddress>
+      <size>32</size>
+      <access>read-write</access>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x10</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>WORK_RX_FIFO</name>
+          <description>Work Receive Interface FIFO</description>
+          <addressOffset>0x00</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>WORK_RX_CTRL_REG</name>
+          <description>Work Receive Control Register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x00000005</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_EN</name>
+              <access>read-write</access>
+              <description>Enable interrupt for Work Receive FIFO</description>
+              <bitRange>[2:2]</bitRange>
+            </field>
+            <field>
+              <name>RST_RX_FIFO</name>
+              <access>write-only</access>
+              <description>Reset/clear Work Receive FIFO</description>
+              <bitRange>[0:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>WORK_RX_STAT_REG</name>
+          <description>Work Receive Status Register</description>
+          <addressOffset>0x0c</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000001</resetValue>
+          <resetMask>0x00000013</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_PEND</name>
+              <access>read-only</access>
+              <description>Interrupt pending for Work Receive FIFO</description>
+              <bitRange>[4:4]</bitRange>
+            </field>
+            <field>
+              <name>RX_FULL</name>
+              <access>read-only</access>
+              <description>Work Interface Receive FIFO Full</description>
+              <bitRange>[1:1]</bitRange>
+            </field>
+            <field>
+              <name>RX_EMPTY</name>
+              <access>read-only</access>
+              <description>Work Interface Receive FIFO Empty</description>
+              <bitRange>[0:0]</bitRange>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>WORKTX</name>
+      <description>Hashing Chain I/O module, transmit FIFO</description>
+      <groupName>HASHCHAIN</groupName>
+      <baseAddress>0</baseAddress>
+      <size>32</size>
+      <access>read-write</access>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x18</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>WORK_TX_FIFO</name>
+          <description>Work Transmit Interface FIFO</description>
+          <addressOffset>0x04</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>WORK_TX_CTRL_REG</name>
+          <description>Work Transmit Control Register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0x00000006</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_EN</name>
+              <access>read-write</access>
+              <description>Enable interrupt for Work Transmit FIFO</description>
+              <bitRange>[2:2]</bitRange>
+            </field>
+            <field>
+              <name>RST_TX_FIFO</name>
+              <access>write-only</access>
+              <description>Reset/clear Work Transmit FIFO</description>
+              <bitRange>[1:1]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>WORK_TX_STAT_REG</name>
+          <description>Work Transmit Status Register</description>
+          <addressOffset>0x0c</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000014</resetValue>
+          <resetMask>0x0000001c</resetMask>
+          <fields>
+            <field>
+              <name>IRQ_PEND</name>
+              <access>read-only</access>
+              <description>Interrupt pending for Work Transmit FIFO</description>
+              <bitRange>[4:4]</bitRange>
+            </field>
+            <field>
+              <name>TX_FULL</name>
+              <access>read-only</access>
+              <description>Work Interface Transmit FIFO Full</description>
+              <bitRange>[3:3]</bitRange>
+            </field>
+            <field>
+              <name>TX_EMPTY</name>
+              <access>read-only</access>
+              <description>Work Interface Transmit FIFO Empty</description>
+              <bitRange>[2:2]</bitRange>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>WORK_TX_IRQ_THR</name>
+          <description>Work Transmit IRQ Threshold</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>WORK_TX_LAST_ID</name>
+          <description>Work Transmit Last Work ID</description>
+          <addressOffset>0x14</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>FAN_CTRL</name>
+      <description>Braiins Fan Controller v0.1</description>
+      <groupName>HASHCHAIN</groupName>
+      <baseAddress>0</baseAddress>
+      <size>32</size>
+      <access>read-write</access>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x14</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <dim>4</dim>
+          <dimIncrement>4</dimIncrement>
+          <name>FAN[%s]_RPS</name>
+          <description>Fan Rotation Speed (in revolutions per second)</description>
+          <addressOffset>0x00</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+        <register>
+          <name>FAN_PWM</name>
+          <description>PWM Duty Cycle Register</description>
+          <addressOffset>0x10</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0x0</resetValue>
+          <resetMask>0xffffffff</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>

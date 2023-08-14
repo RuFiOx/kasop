@@ -1,0 +1,17 @@
+[package]
+name = "uio-async"
+version = "0.1.0"
+authors = ["Gerd Zellweger <mail@gerdzellweger.com>", "Braiins <braiins@braiins.com>"]
+description = "Helper library for writing asynchronous linux user-space drivers with UIO."
+readme = "README.md"
+keywords = ["driver", "pci", "linux", "generic", "hardware", "tokio"]
+license = "MIT"
+edition = "2018"
+
+[dependencies]
+async-compat = { path = "../async-compat" }
+nix = "0.14.1"
+libc = "0.2"
+timeout-readwrite = "0.2.1"
+tokio-file-unix = { path = "../tokio-file-unix" }
+fs2 = "0.4.3"

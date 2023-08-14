@@ -1,0 +1,21 @@
+# ignore temporary files and directories
+/.Xil/
+/vivado.jou
+/vivado.log
+
+# ignore build directory
+/build*/
+
+# ignore backup files
+/system_bd.tcl.backup
+/system_bd.backup.tcl
+/system.backup.tcl
+
+/ps_clock_registers.log
+
+# ignore build history file
+/build_history.txt
+/report.csv
+
+# ignore backup directory
+/backup/

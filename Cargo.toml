@@ -1,12 +1,12 @@
 [package]
 name = "kasop"
-version = "0.2.1-GPU-0.4b"
+version = "0.0.1"
 edition = "2021"
 license = "MIT/Apache-2.0"
 authors = ["RuFiOx"]
 repository = "https://github.com/RuFiOx/kasop.git"
 readme = "README.md"
-description = "A fast CPU miner for Kaspa"
+description = "Kaspa $KAS ASIC Miner"
 categories = ["command-line-utilities"]
 keywords = ["blockchain", "cli"]
 include = [
@@ -54,9 +54,6 @@ default = ["parking_lot"]
 parking_lot = ["parking", "tokio/parking_lot"]
 bench = []
 no-asm = []
-
-[target.'cfg(target_os = "windows")'.dependencies]
-keccak = "0.1"
 
 [profile.release]
 lto = true

@@ -1,0 +1,8 @@
+[cargo_fmt]
+skip = true
+
+[cargo_check]
+skip = true
+
+[cargo_test]
+skip = true

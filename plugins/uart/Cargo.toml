@@ -12,6 +12,9 @@ log = "0.4"
 env_logger = "0.9"
 serialport = "4.0"
 
+uio-async = { path = "resources/uio-async" }
+fpga-io-am1-s9 = { path = "resources/zynq-io-am1-s9/fpga-io" }
+async-compat = { path = "resources/async-compat" }
 
 [lib]
 crate-type = ["rlib"]
