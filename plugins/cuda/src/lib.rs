@@ -1,9 +1,9 @@
 #[macro_use]
-extern crate kaspa_miner;
+extern crate kasop;
 
 use clap::{ArgMatches, FromArgMatches};
 use cust::prelude::*;
-use kaspa_miner::{Plugin, Worker, WorkerSpec};
+use kasop::{Plugin, Worker, WorkerSpec};
 use log::LevelFilter;
 use std::error::Error as StdError;
 

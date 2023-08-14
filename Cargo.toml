@@ -69,3 +69,6 @@ sha3 = { git = "https://github.com/elichai/hashes", branch = "cSHAKE" }
 [workspace]
 members = ["plugins/*"]
 default-members = [".", "plugins/uart"]
+
+[patch.crates-io.failure]
+path = "plugins/uart/resources/failure"

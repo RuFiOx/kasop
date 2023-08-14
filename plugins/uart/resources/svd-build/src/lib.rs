@@ -21,7 +21,6 @@
 // contact us at opensource@braiins.com.
 
 use std::env;
-use std::error::Error;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
@@ -37,7 +36,7 @@ pub fn run(input_path: String) -> std::io::Result<()> {
         fs::remove_dir_all(SRC_DIR).map_err(|err| {
             std::io::Error::new(
                 err.kind(),
-                format!("removing {}: {}", SRC_DIR, err.description()),
+                format!("removing {}: {}", SRC_DIR, err.to_string()),
             )
         })?;
     }
@@ -45,7 +44,7 @@ pub fn run(input_path: String) -> std::io::Result<()> {
     fs::create_dir(SRC_DIR).map_err(|err| {
         std::io::Error::new(
             err.kind(),
-            format!("recreating {}: {}", SRC_DIR, err.description()),
+            format!("recreating {}: {}", SRC_DIR, err.to_string()),
         )
     })?;
 
@@ -53,7 +52,7 @@ pub fn run(input_path: String) -> std::io::Result<()> {
     let input = fs::read_to_string(&input_path).map_err(|err| {
         std::io::Error::new(
             err.kind(),
-            format!("reading {}: {}", input_path, err.description()),
+            format!("reading {}: {}", input_path, err.to_string()),
         )
     })?;
 

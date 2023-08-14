@@ -1,7 +1,7 @@
 use crate::cli::NonceGenEnum;
 use crate::Error;
-use kaspa_miner::xoshiro256starstar::Xoshiro256StarStar;
-use kaspa_miner::Worker;
+use kasop::xoshiro256starstar::Xoshiro256StarStar;
+use kasop::Worker;
 use log::info;
 use opencl3::command_queue::{CommandQueue, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE};
 use opencl3::context::Context;
