@@ -1206,6 +1206,7 @@ dependencies = [
 name = "kasop"
 version = "0.0.1"
 dependencies = [
+ "approx 0.3.2",
  "async-compat",
  "async-trait",
  "blake2b_simd",
@@ -1219,9 +1220,12 @@ dependencies = [
  "fpga-io-am1-s9",
  "futures 0.3.28",
  "futures-util",
+ "inventory",
  "keccak",
  "kernel32-sys",
+ "lazy_static",
  "libloading",
+ "linux-embedded-hal",
  "log 0.4.20",
  "logging",
  "nix 0.23.2",
@@ -1231,6 +1235,7 @@ dependencies = [
  "packed_struct",
  "packed_struct_codegen",
  "parking_lot 0.11.2",
+ "pid_control",
  "prost",
  "rand 0.8.5",
  "serde",
@@ -1242,6 +1247,7 @@ dependencies = [
  "tokio 1.31.0",
  "tokio-stream",
  "tokio-util 0.7.8",
+ "toml",
  "tonic",
  "tonic-build",
  "uio-async",

@@ -60,6 +60,13 @@ sysfs_gpio = { version = "0.5.3" }
 failure = "0.1.5"
 chrono = "0.4.9"
 embedded-hal = "0.2.4"
+lazy_static = "1.3"
+linux-embedded-hal = { version = "0.2.0" }
+pid_control = "0.7.2"
+inventory = "0.1.4"
+approx = "0.3.2"
+toml = "0.5"
+
 
 [features]
 default = ["parking_lot"]
