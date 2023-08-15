@@ -5,7 +5,42 @@ use std::error::Error as StdError;
 pub mod xoshiro256starstar;
 use libloading::{Library, Symbol};
 
+pub mod gpio;
+mod error;
+
+use error::ErrorKind;
+use failure::ResultExt;
+
+use embedded_hal::digital::v2::InputPin;
+use embedded_hal::digital::v2::OutputPin;
+
 pub type Error = Box<dyn StdError + Send + Sync + 'static>;
+
+/// Core address space size (it should be 114, but the addresses are non-consecutive)
+pub const CORE_ADR_SPACE_SIZE: usize = 128;
+
+/// Type representing plug pin
+#[derive(Clone)]
+pub struct PlugPin {
+    pin: gpio::PinIn,
+}
+
+impl PlugPin {
+    pub fn open(gpio_mgr: &gpio::ControlPinManager, hashboard_idx: usize) -> error::Result<Self> {
+        Ok(Self {
+            pin: gpio_mgr
+                .get_pin_in(gpio::PinInName::Plug(hashboard_idx))
+                .context(ErrorKind::Hashboard(
+                    hashboard_idx,
+                    "failed to initialize plug pin".to_string(),
+                ))?,
+        })
+    }
+
+    pub fn hashboard_present(&self) -> error::Result<bool> {
+        Ok(self.pin.is_high()?)
+    }
+}
 
 #[derive(Default)]
 pub struct PluginManager {

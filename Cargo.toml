@@ -49,6 +49,18 @@ num = "0.4"
 nix = "0.23"
 kernel32-sys = "0.2"
 
+uio-async = { path = "plugins/uart/resources/uio-async" }
+fpga-io-am1-s9 = { path = "plugins/uart/resources/zynq-io-am1-s9/fpga-io" }
+async-compat = { path = "plugins/uart/resources/async-compat" }
+logging = { path = "plugins/uart/resources/logging" }
+
+packed_struct="0.3"
+packed_struct_codegen = "0.3"
+sysfs_gpio = { version = "0.5.3" }
+failure = "0.1.5"
+chrono = "0.4.9"
+embedded-hal = "0.2.4"
+
 [features]
 default = ["parking_lot"]
 parking_lot = ["parking", "tokio/parking_lot"]

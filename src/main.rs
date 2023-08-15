@@ -30,6 +30,22 @@ mod pow;
 mod target;
 mod watch;
 
+pub mod counters;
+pub mod bm1387;
+pub mod error;
+pub mod i2c;
+pub mod command;
+pub mod io;
+pub mod gpio;
+
+use crate::counters::{Chip, Core};
+
+/// Core address space size (it should be 114, but the addresses are non-consecutive)
+const CORE_ADR_SPACE_SIZE: usize = 128;
+
+/// Oscillator speed for all chips on S9 hash boards
+pub const CHIP_OSC_CLK_HZ: usize = 25_000_000;
+
 const WHITELIST: [&str; 2] = ["libkaspauart", "kaspauart"];
 
 pub mod proto {
